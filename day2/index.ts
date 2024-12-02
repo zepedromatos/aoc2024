@@ -39,3 +39,32 @@ const validArrangements = findValidArrangements(lines);
 console.log(validArrangements.length);
 
 // PT2
+
+const isValidWithProblemDampener = (arr: number[]): boolean => {
+	if (
+		isStrictlyAscendingOrDescending(arr, true) ||
+		isStrictlyAscendingOrDescending(arr, false)
+	) {
+		return true;
+	}
+
+	for (let i = 0; i < arr.length; i++) {
+		const modifiedArr = [...arr.slice(0, i), ...arr.slice(i + 1)];
+
+		if (
+			isStrictlyAscendingOrDescending(modifiedArr, true) ||
+			isStrictlyAscendingOrDescending(modifiedArr, false)
+		) {
+			return true;
+		}
+	}
+
+	return false;
+};
+
+const findValidArrangementsWithDampener = (lines: number[][]): number[][] =>
+	lines.filter(isValidWithProblemDampener);
+
+const linesPt2 = getLines(input);
+const validArrangementsPt2 = findValidArrangementsWithDampener(linesPt2);
+console.log(validArrangementsPt2.length);
