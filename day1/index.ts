@@ -1,13 +1,12 @@
 import { input } from "./input";
+import { calculateDistance, getLines } from "../utils";
 
 // PT1
 
-const lines = input.split("\n").map((line) => line.split(/\s+/).map(Number));
+const lines = getLines(input);
 
 const leftColumn = lines.map(([a, _]) => a).sort((a, b) => a - b);
 const rightColumn = lines.map(([_, b]) => b).sort((a, b) => a - b);
-
-const calculateDistance = (a: number, b: number) => Math.abs(a - b);
 
 const totalDistance = leftColumn.reduce(
 	(acc, left, i) => acc + calculateDistance(left, rightColumn[i]),
